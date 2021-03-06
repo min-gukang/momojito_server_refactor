@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const csrf = require('csurf');
 const compression = require('compression');
+const { sequelize } = require('./models/index');
 //cookie-parser 불러와야 하나?
 
 const dotenv = require('dotenv');
@@ -13,6 +14,15 @@ const app = express();
 
 app.set('port', process.env.PORT || 4000);
 
+//DB 연결
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log('db 연결 성공');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 //미들웨어 사용
 app.use(morgan('dev'));
 app.use(express.json()); //body-parser대신 요즘 사용하는 모듈
