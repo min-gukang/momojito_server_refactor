@@ -19,7 +19,8 @@ module.exports = class User extends Sequelize.Model {
         },
         snsId: {
           type: Sequelize.STRING(30),
-          allowNull: true,
+          allowNull: false,
+          defaultValue: 'local',
         },
       },
       {
