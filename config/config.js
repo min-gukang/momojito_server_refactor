@@ -15,6 +15,7 @@ module.exports = {
     database: 'momojito_Refactor_test',
     host: '127.0.0.1',
     dialect: 'mysql',
+    logging: false
   },
   production: {
     username: 'root',

@@ -5,12 +5,6 @@ const { expect } = require('chai');
 
 
 describe('Auth 테스트 ', () => {
-  
-  describe('회원가입 기능 함수 테스트', () => {
-    before(() => {
-      sequelize.sync({force: false});
-    })
-
     it('회원가입이 진행되어야 합니다', (done) => {
       request(app)
         .post('/auth/signup')
@@ -60,7 +54,6 @@ describe('Auth 테스트 ', () => {
             done(err);
             return;
           }
-          console.log("res.body", res.body);
           expect(res.body.message).to.equal('로그인 성공');
           done();
         })
@@ -130,8 +123,6 @@ describe('Auth 테스트 ', () => {
 
     after(() => {
       console.log('=============디비 초기화=============')
-      sequelize.sync({force: true});
+      sequelize.sync({force: true, logging: false});
     })
-
-  });
 });
