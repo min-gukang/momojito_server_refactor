@@ -10,8 +10,8 @@ module.exports = class DormantId extends Sequelize.Model {
           unique: true,
         },
         password: {
-            type: Sequelize.STRING(100),
-            allowNull: false,
+          type: Sequelize.STRING(100),
+          allowNull: false,
         },
       },
       {
@@ -19,7 +19,7 @@ module.exports = class DormantId extends Sequelize.Model {
         timestamps: true,
         underscored: false,
         modelName: 'DormantId',
-        tableName: 'DormantIds',
+        tableName: 'dormantIds',
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',

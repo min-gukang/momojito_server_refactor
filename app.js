@@ -12,14 +12,15 @@ dotenv.config();
 
 const app = express();
 const authRouter = require('./routes/auth');
+const mypageRouter = require('./routes/mypage');
 
 //cookie-parser 불러와야 하나?
 const options = {
-	host: 'localhost',
-	port: 3306,
-	user: 'root',
-	password: process.env.DB_PASSWORD,
-	database: 'momojito_session'
+  host: 'localhost',
+  port: 3306,
+  user: 'root',
+  password: process.env.DB_PASSWORD,
+  database: 'momojito_session',
 };
 
 const sessionStore = new mysqlStore(options);
@@ -28,7 +29,7 @@ app.set('port', process.env.PORT || 4000);
 
 //DB 연결
 sequelize
-  .sync({ force: false, logging: false})
+  .sync({ alter: true, logging: false })
   .then(() => {
     console.log('db 연결 성공');
   })
@@ -36,7 +37,10 @@ sequelize
     console.error(err);
   });
 //미들웨어 사용
-app.use(morgan('dev'));
+console.log('환경', process.env.NODE_ENV);
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('dev'));
+}
 app.use(express.json()); //body-parser대신 요즘 사용하는 모듈
 app.use(express.urlencoded({ extended: true })); //true로 하면 form형식의 데이터를 강력한 모듈을 사용하여 처리하기 때문에 설정
 app.use(helmet());
@@ -58,6 +62,7 @@ app.use(
 app.use(compression());
 
 app.use('/auth', authRouter);
+app.use('/mypage', mypageRouter);
 
 //에러처리 핸들러
 app.use((req, res, next) => {

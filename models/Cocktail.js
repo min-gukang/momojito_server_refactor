@@ -7,7 +7,6 @@ module.exports = class Cocktail extends Sequelize.Model {
         name: {
           type: Sequelize.STRING(30),
           allowNull: false,
-          unique: true,
         },
         koName: {
           type: Sequelize.STRING(100),
@@ -23,7 +22,7 @@ module.exports = class Cocktail extends Sequelize.Model {
         timestamps: true,
         underscored: false,
         modelName: 'Cocktail',
-        tableName: 'Cocktails',
+        tableName: 'cocktails',
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
