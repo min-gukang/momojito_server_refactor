@@ -31,7 +31,10 @@ module.exports = class Cocktail extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Cocktail.belongsToMany(db.User, { through: 'Favorites' });
-    db.Cocktail.belongsToMany(db.User, { through: 'Ratings' });
+    db.Cocktail.belongsToMany(db.User, {
+      through: 'Favorites',
+      as: 'FFavorites',
+    });
+    db.Cocktail.belongsToMany(db.User, { through: "Rating", as: 'RRatings' });
   }
 };

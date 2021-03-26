@@ -3,16 +3,17 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
-// const csrf = require('csurf');
 const compression = require('compression');
 const { sequelize } = require('./models/index');
 const mysqlStore = require('express-mysql-session');
 const dotenv = require('dotenv');
 dotenv.config();
+// const csrf = require('csurf');
 
 const app = express();
 const authRouter = require('./routes/auth');
 const mypageRouter = require('./routes/mypage');
+const detailPageRouter = require('./routes/detailpage');
 
 //cookie-parser 불러와야 하나?
 const options = {
@@ -29,7 +30,7 @@ app.set('port', process.env.PORT || 4000);
 
 //DB 연결
 sequelize
-  .sync({ alter: true, logging: false })
+  .sync({ force: false, logging: false })
   .then(() => {
     console.log('db 연결 성공');
   })
@@ -63,6 +64,7 @@ app.use(compression());
 
 app.use('/auth', authRouter);
 app.use('/mypage', mypageRouter);
+app.use('/detailpage', detailPageRouter);
 
 //에러처리 핸들러
 app.use((req, res, next) => {

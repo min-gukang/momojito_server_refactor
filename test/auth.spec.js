@@ -3,7 +3,10 @@ const app = require('../app');
 const { sequelize } = require('../models/index');
 const { expect } = require('chai');
 
-
+before(() => {
+  console.log('=============디비 초기화=============')
+  sequelize.sync({force: true});
+})
 describe('Auth 테스트 ', () => {
     it('회원가입이 진행되어야 합니다', (done) => {
       request(app)
@@ -119,10 +122,5 @@ describe('Auth 테스트 ', () => {
           expect(res.text).to.equal('계정 복구 완료');
           done();
         })
-    })
-
-    after(() => {
-      console.log('=============디비 초기화=============')
-      sequelize.sync({force: true, logging: false});
     })
 });

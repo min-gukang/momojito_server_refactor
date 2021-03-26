@@ -1,5 +1,4 @@
 const User = require('../../models/User');
-const Cocktail = require('../../models/Cocktail');
 
 module.exports = async (req, res) => {
   try {

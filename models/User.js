@@ -37,8 +37,11 @@ module.exports = class User extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.User.belongsToMany(db.Cocktail, { through: 'Favorites' });
-    db.User.belongsToMany(db.Cocktail, { through: 'Ratings' });
+    db.User.belongsToMany(db.Cocktail, {
+      through: 'Favorites',
+      as: 'FFavorites',
+    });
+    db.User.belongsToMany(db.Cocktail, { through: "Rating", as: 'RRatings' });
     db.User.hasMany(db.Comment);
   }
 };
